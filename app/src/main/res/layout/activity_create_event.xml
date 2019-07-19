@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+    <RelativeLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <EditText
+                android:id="@+id/eventtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="EVENT TITLE"
+                android:textColorHint="#444444">
+
+            <requestFocus/>
+        </EditText>
+
+        <EditText
+                android:id="@+id/eventdescription"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/eventtitle"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Brief Description"
+                android:textColorHint="#444444"
+                android:inputType="textMultiLine"
+        />
+
+        <!--strat date beginning-->
+        <TextView
+                android:id="@+id/setstartdate"
+                android:layout_below="@+id/eventdescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="Set Start Date"
+                android:textColor="#000000"
+                android:textAppearance="?android:attr/textAppearanceSmall" android:layout_alignEnd="@+id/eventtitle"/>
+
+
+        <DatePicker
+                android:id="@+id/startDatePicker"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:layout_marginTop="110dp"/>
+
+        <TimePicker
+                android:id="@+id/startTimePicker"
+                android:layout_below="@+id/startDatePicker"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+        />
+        <!--start date finish-->
+
+        <!--end date beginning-->
+        <TextView
+                android:id="@+id/setenddate"
+                android:layout_below="@+id/startTimePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:text="Set End Date"
+                android:textColor="#000000"
+                android:textAppearance="?android:attr/textAppearanceSmall" android:layout_alignEnd="@+id/eventtitle"/>
+
+
+        <DatePicker
+                android:id="@+id/endDatePicker"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setenddate"
+                android:calendarViewShown="false"
+                />
+
+        <TimePicker
+                android:id="@+id/endTimePicker"
+                android:layout_below="@+id/endDatePicker"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+        />
+        <!--end date finish-->
+
+
+        <TextView
+                android:id="@+id/setattendants"
+                android:layout_below="@+id/endTimePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:clickable="true"
+                android:onClick="setAttendants"
+                android:text="SET ATTENDANTS"
+                android:textColor="#0000FF"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <!-- <EditText
+            android:id="@+id/eventvenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventattendant"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="Venue"
+            android:inputType="textMultiLine" /> -->
+
+        <TextView
+                android:id="@+id/viewvenue"
+                android:layout_below="@+id/setattendants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:clickable="true"
+                android:onClick="setVenue"
+                android:text="SET VENUE"
+                android:textColor="#0000FF"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <!--     <EditText
+            android:id="@+id/setvenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventtitle"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="Set Venue"
+            android:inputType="textMultiLine" /> -->
+
+        <Button
+                android:id="@+id/btncreate"
+                android:layout_below="@+id/viewvenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="CREATE"
+        />
+    </RelativeLayout>
+
+</ScrollView>

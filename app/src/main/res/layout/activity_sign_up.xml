@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".SignUpPage" >
+
+    <EditText
+            android:id="@+id/newusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="74dp"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+            android:id="@+id/pasttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/newpassword"
+            android:layout_alignLeft="@+id/newpassword"
+            android:layout_marginBottom="42dp"
+            android:text="Password"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newpassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="56dp"
+            android:onClick="signup"
+            android:text="SIGN UP" />
+
+    <TextView
+            android:id="@+id/testtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp"
+            android:clickable="true"
+            android:onClick="gotologin"
+            android:text="Log In"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#0000FF" />
+
+    <EditText
+            android:id="@+id/newpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+    <EditText
+            android:id="@+id/newemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/newusername"
+            android:layout_below="@+id/newusername"
+            android:layout_marginTop="19dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+</RelativeLayout>
