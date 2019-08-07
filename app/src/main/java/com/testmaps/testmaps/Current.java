@@ -2,7 +2,7 @@ package com.testmaps.testmaps;
 
 import android.content.Intent;
 import android.support.v4.app.ListFragment;
-import android.widget.AdapterView;
+import android.widget.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,10 +14,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /*public class Current extends Fragment {
     String [] current = new String[]{"current 1", "current 2", "current 3"};
@@ -67,6 +67,10 @@ import android.widget.Toast;
 public class Current extends ListFragment implements OnItemClickListener {
     public Context context;
 
+    private ListView mListView;
+    public ListViewContactAdapter adapter;
+    public ArrayList<ListViewContactItem> listContact;
+
     public Current()
     {
 
@@ -77,6 +81,7 @@ public class Current extends ListFragment implements OnItemClickListener {
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.activity_current, container, false);
+        mListView = (ListView) view.findViewById(android.R.id.list);
         return view;
     }
 
@@ -84,17 +89,25 @@ public class Current extends ListFragment implements OnItemClickListener {
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        listContact = GetlistContact();
+        adapter=new ListViewContactAdapter(getActivity(), listContact);
+        mListView.setAdapter(adapter);
         String [] current = new String[]{"current 1", "current 2", "current 3"};
-        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_2, android.R.id.text2, current);
+        String[] from = new String[]{"atitle", "aswho"};
+        TextView text2 = (TextView) getActivity().findViewById(android.R.id.text2);
+        getListView().setOnItemClickListener(this);
+
+        /*SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
         int endloop = sharedPref.getInt("noofcurrentevents", 0);
         String[] eventsArray = new String[endloop];
         for(int i = 0; i<endloop; i++)
         {
             eventsArray[i] = sharedPref.getString("currenttitle"+i, "not available");
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, eventsArray);
-        setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
+        }*/
+
+        //setListAdapter(adapter);
+
 
     }
 
@@ -114,5 +127,39 @@ public class Current extends ListFragment implements OnItemClickListener {
 
         getActivity().startActivity(startviewpage);
 
+    }
+
+    private ArrayList<ListViewContactItem> GetlistContact(){
+
+
+        ListViewContactItem contact = new ListViewContactItem();
+
+        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
+        int endloop = sharedPref.getInt("noofcurrentevents", 0);
+        int endloopminusone = endloop - 1;
+        String[] eventsArray = new String[endloop];
+        String[] asWhoArray = new String[endloop];
+        ArrayList<ListViewContactItem> contactlist = new ArrayList<ListViewContactItem>(Collections.nCopies(endloop, contact));
+        String loggedinuserr = sharedPref.getString("prefkeyforusername", "");
+
+
+        for(int i = 0; i<=endloopminusone; i++)
+        {
+            eventsArray[i] = sharedPref.getString("currenttitle"+i, "not available");
+            asWhoArray[i] = sharedPref.getString("currentaswho"+i, "");
+            contact = new ListViewContactItem();
+            contact.setArea(eventsArray[i]);
+            contact.setStreetName(asWhoArray[i]);
+            contactlist.set(i, contact);
+            if(i==endloopminusone){
+                return contactlist;
+            }
+        }
+
+        contact.setPickUpPoint("xyz");
+        //contact.setArea("xyz City");
+        contact.setLandmark("near xyz");
+        //contact.setStreetName("xyz Road");
+        return null;
     }
 }

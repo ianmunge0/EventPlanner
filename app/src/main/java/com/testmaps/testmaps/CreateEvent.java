@@ -173,7 +173,7 @@ public class CreateEvent extends Activity {
 //			            data += "&eventhour=" + URLEncoder.encode(eventHour, "UTF-8");
 //			            data += "&eventminute=" + URLEncoder.encode(eventMinute, "UTF-8");
 
-			            String link = "http://172.28.0.1/tukioeventhandlers/createevent.php"+data; //exact host url
+			            String link = "http://192.168.41.1/tukioeventhandlers/createevent.php"+data; //exact host url
 			            //Toast.makeText(getApplicationContext(), link, 50000).show();
 			            URL url = new URL(link);
 			            //url.getContent();

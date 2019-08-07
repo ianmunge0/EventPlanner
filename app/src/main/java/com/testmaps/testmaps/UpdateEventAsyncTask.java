@@ -54,7 +54,7 @@ public class UpdateEventAsyncTask extends AsyncTask<String, Void, String> {
         try {
 
 
-            link = "http://172.28.0.1/tukioeventhandlers/updateevent.php";
+            link = "http://192.168.41.1/tukioeventhandlers/updateevent.php";
             URL url = new URL(link);
 
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();

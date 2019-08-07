@@ -53,7 +53,7 @@ public class LogInActivity extends AsyncTask<String, Void, String> {
 //            data = "?username=" + URLEncoder.encode(username, "UTF-8");
 //            data += "&password=" + URLEncoder.encode(passWord, "UTF-8");
 
-            link = "http://172.28.0.1/tukioeventhandlers/login.php";// + data; //exact host url
+            link = "http://192.168.41.1/tukioeventhandlers/login.php";// + data; //exact host url
             URL url = new URL(link);
 
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();

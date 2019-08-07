@@ -59,8 +59,8 @@ public class ListForDeleteEventsAsyncTask extends AsyncTask<String, Void, String
 //            data = "?username=" + URLEncoder.encode(username, "UTF-8");
 //            data += "&password=" + URLEncoder.encode(passWord, "UTF-8");
 
-            String linkk = "http://172.28.0.1/tukioeventhandlers/viewevents.php";// + data; //exact host url
-            link = "http://172.28.0.1/tukioeventhandlers/listfordeleteevents.php";
+            String linkk = "http://192.168.41.1/tukioeventhandlers/viewevents.php";// + data; //exact host url
+            link = "http://192.168.41.1/tukioeventhandlers/listfordeleteevents.php";
             URL url = new URL(link);
 
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();

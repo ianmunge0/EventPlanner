@@ -49,7 +49,7 @@ public class AsincTaskAsyncTask extends AsyncTask<String, String, String> {
             //String lng = sharedPref.getString("strntchk", params[0]);
 
 
-            URL url = new URL("http://172.28.0.1/tukioeventhandlers/new1.php");
+            URL url = new URL("http://192.168.41.1/tukioeventhandlers/new1.php");
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();
             httpurlconnection.setRequestMethod("POST");
             httpurlconnection.setDoOutput(true);

@@ -59,7 +59,7 @@ public class ViewCurrentEventsAsyncTask extends AsyncTask<String, Void, String> 
 //            data = "?username=" + URLEncoder.encode(username, "UTF-8");
 //            data += "&password=" + URLEncoder.encode(passWord, "UTF-8");
 
-            link = "http://172.28.0.1/tukioeventhandlers/viewcurrentevents.php";// + data; //exact host url
+            link = "http://192.168.41.1/tukioeventhandlers/viewcurrentevents.php";// + data; //exact host url
             URL url = new URL(link);
 
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();
@@ -197,6 +197,7 @@ public class ViewCurrentEventsAsyncTask extends AsyncTask<String, Void, String> 
                         editor.putString("currentdate"+i, jsonObj[i].getString("startdate_yyyy_mm_dd"));
                         editor.putString("currenttime"+i, jsonObj[i].getString("starttime"));
                         editor.putString("currentcreator"+i, jsonObj[i].getString("creator"));
+                        editor.putString("currentaswho"+i, jsonObj[i].getString("aswho"));
                         editor.putString("currentattendants"+i, jsonObj[i].getString("attendants"));
                         editor.putString("currentvenue"+i, jsonObj[i].getString("venue"));
                         editor.commit();

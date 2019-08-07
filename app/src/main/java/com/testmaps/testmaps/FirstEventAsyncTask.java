@@ -50,7 +50,7 @@ public class FirstEventAsyncTask extends AsyncTask<String, String, String> {
             String usernameforchoose1event = sharedPref.getString("prefkeyforusername", "");
 
             String createevenifsametime = "hasalreadyhappened";
-            URL url = new URL("http://172.28.0.1/tukioeventhandlers/setfirstevent.php");
+            URL url = new URL("http://192.168.41.1/tukioeventhandlers/setfirstevent.php");
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();
             httpurlconnection.setRequestMethod("POST");
             httpurlconnection.setDoOutput(true);
