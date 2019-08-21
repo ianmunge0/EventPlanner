@@ -122,10 +122,8 @@ public class Current extends ListFragment implements OnItemClickListener {
         editor.putString("eventIdForViewIndiv", eventIdForViewIndiv);
         editor.putInt("currenteventkeyplusone", positionplusone);
         editor.commit();
-        Intent startviewpage = new Intent(getActivity(), ViewIndividualEventActivity.class);
-        startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        getActivity().startActivity(startviewpage);
+        String vieweventss = "";
+        new FetchAttendantsAsyncTask(getActivity().getBaseContext()).execute(vieweventss);
 
     }
 

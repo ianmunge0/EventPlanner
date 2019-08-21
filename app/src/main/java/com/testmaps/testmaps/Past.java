@@ -100,10 +100,8 @@ public class Past extends ListFragment implements OnItemClickListener {
         editor.putString("eventIdForViewIndiv", eventIdForViewIndiv);
         editor.putInt("pasteventkeyplusone", positionplusone);
         editor.commit();
-        //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
         String vieweventss = "";
         new FetchAttendantsAsyncTask(getActivity().getBaseContext()).execute(vieweventss);
-        //new ViewIndividualAsync(context).execute();
 
     }
 

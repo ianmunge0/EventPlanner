@@ -44,7 +44,7 @@ public class AsincTaskAsyncTask extends AsyncTask<String, String, String> {
             SharedPreferences sharedPref = context.getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
             String usernamefornew1 = sharedPref.getString("prefkeyforusername", "");
             int keyforid_ = sharedPref.getInt("keyforindividual", -1);
-            String strid_ = sharedPref.getString("pastid"+keyforid_, "");
+            String strid_ = sharedPref.getString(sharedPref.getString("timecateg", "")+"id"+keyforid_, "");
             //String lat = sharedPref.getString("strttchk", params[0]);
             //String lng = sharedPref.getString("strntchk", params[0]);
 

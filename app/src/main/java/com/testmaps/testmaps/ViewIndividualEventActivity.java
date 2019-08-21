@@ -60,16 +60,14 @@ public class ViewIndividualEventActivity extends Activity {//implements OnMapRea
             //pastAttendants.setText(sharedPref.getString("pastattendants"+pasteventkey, ""));
             int noofattendants = sharedPref.getInt("noofattendants", 0);
             for(int j = 0; j < noofattendants; j++){
-                pastAttendants.append(sharedPref.getString("username"+j, "attendant")+": "+"CHECKED IN\n");//sharedPref.getString("ifcheckedin"+j, "if checked in")+"\n");
+                pastAttendants.append(sharedPref.getString("username"+j, "attendant")+": "+sharedPref.getString("ifcheckedin"+j, "...")+"\n");
             }
 
             TextView pastVenue = (TextView) findViewById(R.id.vvenue);
             pastVenue.setText(sharedPref.getString("pastvenue"+pasteventkey, ""));
 
 
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("keyforindividual", pasteventkey);
-            editor.commit();
+
         }
         else if(currenteventkeyplusone != -1 && currenteventkeyplusone != 0){
             int currenteventkey = currenteventkeyplusone-1;
@@ -89,12 +87,17 @@ public class ViewIndividualEventActivity extends Activity {//implements OnMapRea
             currentCreator.setText(sharedPref.getString("currentcreator"+currenteventkey, ""));
 
             TextView currentAttendants = (TextView) findViewById(R.id.aattendants);
-            currentAttendants.setText(sharedPref.getString("currentattendants"+currenteventkey, ""));
+            //currentAttendants.setText(sharedPref.getString("currentattendants"+currenteventkey, ""));
+            int noofattendants = sharedPref.getInt("noofattendants", 0);
+            for(int j = 0; j < noofattendants; j++){
+                currentAttendants.append(sharedPref.getString("username"+j, "attendant")+": "+sharedPref.getString("ifcheckedin"+j, "...")+"\n");
+            }
 
             TextView currentVenue = (TextView) findViewById(R.id.vvenue);
             currentVenue.setText(sharedPref.getString("currentvenue"+currenteventkey, ""));
 
             SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("timecateg", "current");
             editor.putInt("keyforindividual", currenteventkey);
             editor.commit();
         }
@@ -116,12 +119,17 @@ public class ViewIndividualEventActivity extends Activity {//implements OnMapRea
             upcomingCreator.setText(sharedPref.getString("upcomingcreator"+upcomingeventkey, ""));
 
             TextView upcomingAttendants = (TextView) findViewById(R.id.aattendants);
-            upcomingAttendants.setText(sharedPref.getString("upcomingattendants"+upcomingeventkey, ""));
+            //upcomingAttendants.setText(sharedPref.getString("upcomingattendants"+upcomingeventkey, ""));
+            int noofattendants = sharedPref.getInt("noofattendants", 0);
+            for(int j = 0; j < noofattendants; j++){
+                upcomingAttendants.append(sharedPref.getString("username"+j, "attendant")+": "+sharedPref.getString("ifcheckedin"+j, "...")+"\n");
+            }
 
             TextView upcomingVenue = (TextView) findViewById(R.id.vvenue);
             upcomingVenue.setText(sharedPref.getString("upcomingvenue"+upcomingeventkey, ""));
 
             SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("timecateg", "upcoming");
             editor.putInt("keyforindividual", upcomingeventkey);
             editor.commit();
         }
