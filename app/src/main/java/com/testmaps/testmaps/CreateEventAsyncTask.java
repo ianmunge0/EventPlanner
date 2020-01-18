@@ -86,7 +86,7 @@ public class CreateEventAsyncTask extends AsyncTask<String, String, String> {
             String strrlongitude = sharedPref.getString("strrlongitude", "36.8219");
 
 
-            URL url = new URL("http://192.168.41.1/tukioeventhandlers/createevent.php");
+            URL url = new URL("https://ianmunge.co.ke/tukioeventhandlers/createevent.php");
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();
             httpurlconnection.setRequestMethod("POST");
             httpurlconnection.setDoOutput(true);
