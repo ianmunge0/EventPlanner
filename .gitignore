@@ -1,6 +1,12 @@
+*.jks
+*.apk
+app/build/
+app/src/debug/res/values/google_maps_api.xml
+app/src/release/res/values/google_maps_api.xml
 *.iml
 .gradle
 /local.properties
+/.idea/
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
