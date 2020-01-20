@@ -4,3 +4,4 @@ Event Planner emphasizes on punctuality. Event Planner is your reference when yo
 ### Screenshots
 <img src="screenshots/screenshotlogin.png" height="50%" />
 <img src="screenshots/screenshotsignup.png" height="50%" />
+<img src="screenshots/screenshothome.png" height="50%" />
