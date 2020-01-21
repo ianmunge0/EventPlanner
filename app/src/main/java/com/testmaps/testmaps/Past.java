@@ -112,7 +112,7 @@ public class Past extends ListFragment implements OnItemClickListener {
         ListViewContactItem contact = new ListViewContactItem();
 
         SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-        int endloop = sharedPref.getInt("noofpastevents", 0);
+        int endloop = sharedPref.getInt("noofpastevents", 1);
         int endloopminusone = endloop - 1;
         String[] eventsArray = new String[endloop];
         String[] asWhoArray = new String[endloop];
@@ -122,7 +122,7 @@ public class Past extends ListFragment implements OnItemClickListener {
 
         for(int i = 0; i<=endloopminusone; i++)
         {
-            eventsArray[i] = sharedPref.getString("pasttitle"+i, "not available");
+            eventsArray[i] = sharedPref.getString("pasttitle"+i, "(No Past Events)");
             asWhoArray[i] = sharedPref.getString("pastaswho"+i, "");
             contact = new ListViewContactItem();
             contact.setArea(eventsArray[i]);

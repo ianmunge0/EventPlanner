@@ -11,6 +11,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -117,184 +118,90 @@ public class ViewCurrentEventsAsyncTask extends AsyncTask<String, Void, String> 
 
     String[] query_result;
     JSONObject[] jsonObj;
-    /*String query_result1;
-    String query_result2;*/
+    String query_result1;
 
     protected void onPostExecute(String result)
     {
-        String jsonStr = result;
-        if (jsonStr != null) {
-            try {
-                //JSONObject jsonObj1 = new JSONObject().getJSONObject(jsonStr);
-                //JSONObject jsonObj = new JSONObject(jsonStr);
-                //query_result1 = jsonObj.getString("query_result");
-                JSONArray jsonArray = new JSONArray(jsonStr);
+        if (result != null) {
 
-            	/*JSONArray jsonArray0 = new JSONArray(jsonStr[0]);
-                query_result0 = jsonArray0.getString(0);
-
-                JSONArray jsonArray1 = new JSONArray(jsonStr[1]);
-                query_result1 = jsonArray1.getString(0);
-
-                JSONArray jsonArray2 = new JSONArray(jsonStr[2]);
-                query_result2 = jsonArray2.getString(0);*/
-
-//            	vieweventss.setText(query_result1);
-
-
-                /*else if (query_result1.equals("FAILURE")) {
-                    Toast.makeText(context, "User does not exist", Toast.LENGTH_SHORT).show();
-                } else if(query_result1.equals("ERROR")) {
-                	Toast.makeText(context, "Error in logging in.", Toast.LENGTH_SHORT).show();
-                }*/
-                /*if(query_result0.equals("EMPTY VALUES"))
-                {
-                	Toast.makeText(context, query_result0, Toast.LENGTH_SHORT).show();
-                }*/
-                /*else {
-                    Toast.makeText(context, "Couldn't connect to remote database.", Toast.LENGTH_SHORT).show();
-                }*/
-                /*else if (query_result1.equals("SUCCESS")) {
-                    //Toast.makeText(context, "Data inserted successfully. Signup successful.", Toast.LENGTH_SHORT).show();
-                	Toast.makeText(context, query_result1, Toast.LENGTH_SHORT).show();
-                	//Intent starthomepage = new Intent(context.getApplicationContext(), Home.class);
-
-                	//Intent starthomepage = new Intent(context.getApplicationContext(), Home.class);
-                	//context.startActivity(starthomepage);
-                	//Toast.makeText(context, query_result1+"!", Toast.LENGTH_SHORT).show();
-//                	vieweventss.setText(result);
-                	 //queryresult2 = result;
-
-                } */
-                /*else if (query_result0.equals("NOEVENTS"))
-                {
-                	Toast.makeText(context, "No Events Created", Toast.LENGTH_SHORT).show();
-                	/*TextView thisText = new TextView(context);
-                	thisText.setText("No events created.");*/
-                /*}*/
-
-                SharedPreferences sharedPref = context.getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                    /*editor.putString("prefkeyforviewevents", query_result1);
-                    editor.commit();*/
-
-                //ArrayList<String> list = new ArrayList<String>();
-
-                if(jsonArray != null)
-                {
-                    int endloop = jsonArray.length()-1;
-                    for(int i=0; i<=endloop; i++)
-                    {
-                        query_result = new String[jsonArray.length()];
-                        query_result[i] = jsonArray.getString(i);
-                        jsonObj = new JSONObject[jsonArray.length()];
-                        jsonObj[i] = new JSONObject(query_result[i]);
-                        jsonObj[i].getString("title");
-
-                        editor.putString("currentid"+i, jsonObj[i].getString("id"));
-                        editor.putString("currenttitle"+i, jsonObj[i].getString("title"));
-                        editor.putString("currentdescription"+i, jsonObj[i].getString("description"));
-                        editor.putString("currentdate"+i, jsonObj[i].getString("startdate_yyyy_mm_dd"));
-                        editor.putString("currenttime"+i, jsonObj[i].getString("starttime"));
-                        editor.putString("currentcreator"+i, jsonObj[i].getString("creator"));
-                        editor.putString("currentaswho"+i, jsonObj[i].getString("aswho"));
-                        editor.putString("currentattendants"+i, jsonObj[i].getString("attendants"));
-                        editor.putString("currentvenue"+i, jsonObj[i].getString("venue"));
-                        editor.commit();
-                        if(i==endloop)
-                        {
-                            editor.putInt("noofcurrentevents", jsonArray.length());
-                            editor.commit();
-
-                        }
-                    }
-                       /*int len = jsonArray.length();
-                       for (int i=0;i<len;i++)
-                       {
-                    	   list.add(jsonArray.get(i).toString());
-                       }
-                       String[] newlist = list.toArray(new String[list.size()]);*/
-                       /*StringBuilder sb = new StringBuilder();
-                       for(int i = 0; i < newlist.length; i++)
-                       {
-                           sb.append(newlist[i]).append(",");
-                       }
-                       editor.putString("prefkeyforviewevents", sb.toString());*/
-                    //editor.putString("prefkey1forviewevents", jsonArray.toString());
-                    //editor.commit();
-                }
-                    /*if(jsonArray1 != null)
-                    {
-                    	int len = jsonArray1.length();
-                        for (int i=0;i<len;i++)
-                        {
-                     	   list.add(jsonArray1.get(i).toString());
-                        }
-                        String[] newlist = list.toArray(new String[list.size()]);
-                        /*StringBuilder sb = new StringBuilder();
-                        for(int i = 0; i < newlist.length; i++)
-                        {
-                            sb.append(newlist[i]).append(",");
-                        }
-                        editor.putString("prefkeyforviewevents", sb.toString());*/
-
-                    /*    editor.putString("prefkey1forviewevents", jsonArray1.toString());
-                        editor.commit();
-                    }*/
-                    /*if(jsonArray2 != null)
-                    {
-                    	int len = jsonArray2.length();
-                        for (int i=0;i<len;i++)
-                        {
-                     	   list.add(jsonArray2.get(i).toString());
-                        }
-                        String[] newlist = list.toArray(new String[list.size()]);
-                        /*StringBuilder sb = new StringBuilder();
-                        for(int i = 0; i < newlist.length; i++)
-                        {
-                            sb.append(newlist[i]).append(",");
-                        }
-                        editor.putString("prefkeyforviewevents", sb.toString());*/
-
-                     /*   editor.putString("prefkey2forviewevents", jsonArray2.toString());
-                        editor.commit();
-                    }*/
-
-                //Intent startviewpage = new Intent(context.getApplicationContext(), ViewEvents.class);
-
-                    /*Intent startviewpage = new Intent(context.getApplicationContext(), EventsTab1.class);
-                    //startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(startviewpage);*/
-                String vieweventss = "upcoming";
-                new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
-
-                //ViewEvents.displayEventsFromAsyncTask(context, query_result1);
-
-
-            } catch (JSONException e) {
-                //e.printStackTrace();
-                Toast.makeText(context, "async2"+ e.getLocalizedMessage(), Toast.LENGTH_LONG).show();//"Error parsing JSON data :- "+query_result1
+            Object json = new Object();
+            try{
+                json = new JSONTokener(result).nextValue();
             }
-        } else {
+            catch (JSONException e0){
+
+            }
+
+
+            if (json instanceof JSONObject){
+                try{
+                    JSONObject jsonObj1 = new JSONObject(result);
+                    query_result1 = jsonObj1.getString("query_result");
+
+                    if (query_result1.equals("NOEVENTS"))
+                    {
+                        String vieweventss = "upcoming";
+                        new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
+                    }
+
+                }
+                catch (JSONException e){
+                    e.getMessage();
+                }
+
+            }
+
+            else if (json instanceof JSONArray){
+                try {
+
+                    JSONArray jsonArray = new JSONArray(result);
+
+                    SharedPreferences sharedPref = context.getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                    if(jsonArray != null)
+                    {
+                        int endloop = jsonArray.length()-1;
+                        for(int i=0; i<=endloop; i++)
+                        {
+                            query_result = new String[jsonArray.length()];
+                            query_result[i] = jsonArray.getString(i);
+                            jsonObj = new JSONObject[jsonArray.length()];
+                            jsonObj[i] = new JSONObject(query_result[i]);
+                            jsonObj[i].getString("title");
+
+                            editor.putString("currentid"+i, jsonObj[i].getString("id"));
+                            editor.putString("currenttitle"+i, jsonObj[i].getString("title"));
+                            editor.putString("currentdescription"+i, jsonObj[i].getString("description"));
+                            editor.putString("currentdate"+i, jsonObj[i].getString("startdate_yyyy_mm_dd"));
+                            editor.putString("currenttime"+i, jsonObj[i].getString("starttime"));
+                            editor.putString("currentcreator"+i, jsonObj[i].getString("creator"));
+                            editor.putString("currentaswho"+i, jsonObj[i].getString("aswho"));
+                            editor.putString("currentattendants"+i, jsonObj[i].getString("attendants"));
+                            editor.putString("currentvenue"+i, jsonObj[i].getString("venue"));
+                            editor.commit();
+                            if(i==endloop)
+                            {
+                                editor.putInt("noofcurrentevents", jsonArray.length());
+                                editor.commit();
+                            }
+                        }
+
+                    }
+
+                    String vieweventss = "upcoming";
+                    new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
+
+                } catch (JSONException e) {
+                    //e.printStackTrace();
+                    Toast.makeText(context, "async2: "+ e.getMessage(), Toast.LENGTH_LONG).show();//"Error parsing JSON data :- "+query_result1
+                }
+            }
+        }
+        else {
             Toast.makeText(context, "Couldn't get any JSON data.", Toast.LENGTH_SHORT).show();
         }
-        //String []
-        //return result;
-        //return "";
+
     }
 
-
-
-
-
-//    public void startanactivity(View view)
-//	{
-//		Intent starthomepage = new Intent(context.getApplicationContext(), Home.class);
-//    	context.startActivity(starthomepage);
-//    	//startActivity(new Intent(context.getApplicationContext(), Home.class));
-//	}
-
-
 }
-

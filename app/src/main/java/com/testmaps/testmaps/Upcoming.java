@@ -133,7 +133,7 @@ public class Upcoming extends ListFragment implements OnItemClickListener {
         ListViewContactItem contact = new ListViewContactItem();
 
         SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-        int endloop = sharedPref.getInt("noofupcomingevents", 0);
+        int endloop = sharedPref.getInt("noofupcomingevents", 1);
         int endloopminusone = endloop - 1;
         String[] eventsArray = new String[endloop];
         String[] asWhoArray = new String[endloop];
@@ -143,7 +143,7 @@ public class Upcoming extends ListFragment implements OnItemClickListener {
 
         for(int i = 0; i<=endloopminusone; i++)
         {
-            eventsArray[i] = sharedPref.getString("upcomingtitle"+i, "not available");
+            eventsArray[i] = sharedPref.getString("upcomingtitle"+i, "(No Upcoming Events)");
             asWhoArray[i] = sharedPref.getString("upcomingaswho"+i, "");
             contact = new ListViewContactItem();
             contact.setArea(eventsArray[i]);
