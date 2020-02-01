@@ -62,6 +62,7 @@ public class FetchAttendantsAsyncTask extends AsyncTask<String, Void, String> {
 
             String evntid = sharedPref.getString("eventIdForViewIndiv", "zer0");
             String posteventdata = URLEncoder.encode("eventidforcheckcheckers", "UTF-8")+"="+URLEncoder.encode(evntid, "UTF-8")+"&"+
+                    URLEncoder.encode("viewevents", "UTF-8")+"="+URLEncoder.encode(vieweventss, "UTF-8")+"&"+
                     URLEncoder.encode("usernameforviewsphp", "UTF-8")+"="+URLEncoder.encode(usernameforviews, "UTF-8");
 
             bufferedwriter.write(posteventdata);

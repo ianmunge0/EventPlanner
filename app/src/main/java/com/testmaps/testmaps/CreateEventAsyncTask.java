@@ -309,6 +309,9 @@ public class CreateEventAsyncTask extends AsyncTask<String, String, String> {
                 else if(query_result.equals("STARTENDEQUAL")){
                     Toast.makeText(context, "Start time and end time cannot be the same time", Toast.LENGTH_SHORT).show();
                 }
+                else if(query_result.equals("SOLO")){
+                    Toast.makeText(context, "Attendants' list must include a different person other than you.", Toast.LENGTH_LONG).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(context, "Error parsing JSON data :- "+query_result, Toast.LENGTH_SHORT).show();
