@@ -6,4 +6,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="email_prompt">enter username</string>
     <string name="google_maps_key_">YOUR_KEY_HERE</string>
+    <string name="title_activity_events_tab">EventPlanner</string>
+    <string name="tab_text_1">Past</string>
+    <string name="tab_text_2">Current</string>
+    <string name="tab_text_3">Upcoming</string>
 </resources>

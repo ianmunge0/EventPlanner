@@ -75,7 +75,7 @@ public class Home extends Activity {
             @Override
             public void onClick(View v) {
                 //Intent startviewpage = new Intent(Home.this, ViewEvents.class);
-                String vieweventss = "past";
+                String vieweventsfromhomepage = "past";
                 try
                 {
 
@@ -83,7 +83,12 @@ public class Home extends Activity {
                     //startviewpage.putExtra("passwordforview", passwordforhomme);
                     //startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //startActivity(startviewpage);
-                    new ViewPastEventsAsyncTask(getApplicationContext()).execute(vieweventss);
+
+                    Intent startviewpage = new Intent(Home.this, EventsTab.class);
+                    startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(startviewpage);
+
+                    //new ViewPastEventsAsyncTask(getApplicationContext()).execute(vieweventsfromhomepage);
                 }
                 catch(Exception e)
                 {

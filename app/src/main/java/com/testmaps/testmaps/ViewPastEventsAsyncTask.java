@@ -30,7 +30,7 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
 
     private Context context;
 
-    public ViewPastEventsAsyncTask(Context context) {
+    protected ViewPastEventsAsyncTask(Context context) {
         this.context = context;
     }
 
@@ -38,29 +38,17 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
 
     }
     String vieweventss;
-    //String usernameforviews;
-    //String passwordforviews;
+
     @Override
     protected String doInBackground(String... params) {
-        //String result = MainActivity.doInBackgroundForViewEvents(context, vieweventss, params[0]);
-        //return result;
 
-
-        //String past = params[0];
         vieweventss = params[0];
-        //usernameforviews = params[1];
-        //passwordforviews = params[2];
 
         String link;
-        //String data;
-        //BufferedReader bufferedReader;
-        //String result;
 
         try {
-//            data = "?username=" + URLEncoder.encode(username, "UTF-8");
-//            data += "&password=" + URLEncoder.encode(passWord, "UTF-8");
 
-            link = "https://ianmunge.co.ke/tukioeventhandlers/viewpastevents.php";// + data; //exact host url
+            link = "https://ianmunge.co.ke/tukioeventhandlers/viewpastevents.php";
             URL url = new URL(link);
 
             HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();
@@ -69,13 +57,9 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
             httpurlconnection.setDoInput(true);
             OutputStream outputstream = httpurlconnection.getOutputStream();
             BufferedWriter bufferedwriter = new BufferedWriter(new OutputStreamWriter(outputstream, "UTF-8"));
-            //String posteventdata = URLEncoder.encode("viewevents", "UTF-8")+"="+URLEncoder.encode(vieweventss, "UTF-8");
 
             SharedPreferences sharedPref = context.getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
             String usernameforviews = sharedPref.getString("prefkeyforusername", "");
-        	/*String posteventdata = URLEncoder.encode("viewevents", "UTF-8")+"="+URLEncoder.encode(vieweventss, "UTF-8")+"&"+
-        			URLEncoder.encode("usernameforviewsphp", "UTF-8")+"="+URLEncoder.encode(usernameforviews, "UTF-8")+"&"+
-        			URLEncoder.encode("passwordforviewsphp", "UTF-8")+"="+URLEncoder.encode(passwordforviews, "UTF-8");*/
             String posteventdata = URLEncoder.encode("viewevents", "UTF-8")+"="+URLEncoder.encode(vieweventss, "UTF-8")+"&"+
                     URLEncoder.encode("usernameforviewsphp", "UTF-8")+"="+URLEncoder.encode(usernameforviews, "UTF-8");
 
@@ -86,14 +70,11 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
 
             InputStream inputstream = httpurlconnection.getInputStream();
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream, "iso-8859-1"));
-            //LineNumberReader linenumberreader = new LineNumberReader(new InputStreamReader(inputstream, "iso-8859-1"));
-            //String[] result = {};
             String result = "";
             String line = "";
 
             while((line = bufferedreader.readLine())!=null)
             {
-                //result[linenumberreader.getLineNumber()] += line;
                 result += line;
             }
             bufferedreader.close();
@@ -101,17 +82,11 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
             httpurlconnection.disconnect();
 
             return result;
-            //return "";
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//
-//            bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//            result = bufferedReader.readLine();
-//            return result;
+
         } catch (Exception e) {
-            //String[] result2 = {e.getLocalizedMessage(), e.getMessage(), e.getMessage()};
-            //return result2;
+
             return "";
-            //return new String("Exception: " + e.getMessage());
+
         }
 
     }
@@ -119,7 +94,6 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
     String[] query_result;
     JSONObject[] jsonObj;
     String query_result1;
-    /*String query_result2;*/
 
     protected void onPostExecute(String result)
     {
@@ -141,8 +115,8 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
 
                     if (query_result1.equals("NOEVENTS"))
                     {
-                        String vieweventss = "current";
-                        new ViewCurrentEventsAsyncTask(context).execute(vieweventss);
+                        //String vieweventsfromviewpast = "current";
+                        //new ViewCurrentEventsAsyncTask(context).execute(vieweventsfromviewpast);
                     }
 
                 }
@@ -172,15 +146,17 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
                             jsonObj[i] = new JSONObject(query_result[i]);
                             jsonObj[i].getString("title");
 
-                            editor.putString("pastid"+i, jsonObj[i].getString("id"));
-                            editor.putString("pasttitle"+i, jsonObj[i].getString("title"));
-                            editor.putString("pastdescription"+i, jsonObj[i].getString("description"));
-                            editor.putString("pastdate"+i, jsonObj[i].getString("startdate_yyyy_mm_dd"));
-                            editor.putString("pasttime"+i, jsonObj[i].getString("starttime"));
-                            editor.putString("pastcreator"+i, jsonObj[i].getString("creator"));
-                            editor.putString("pastaswho"+i, jsonObj[i].getString("aswho"));
-                            editor.putString("pastattendants"+i, jsonObj[i].getString("attendants"));
-                            editor.putString("pastvenue"+i, jsonObj[i].getString("venue"));
+                            String stringi = Integer.toString(i);
+
+                            editor.putString("pastid"+stringi, jsonObj[i].getString("id"));
+                            editor.putString("pasttitle"+stringi, jsonObj[i].getString("title"));
+                            editor.putString("pastdescription"+stringi, jsonObj[i].getString("description"));
+                            editor.putString("pastdate"+stringi, jsonObj[i].getString("startdate_yyyy_mm_dd"));
+                            editor.putString("pasttime"+stringi, jsonObj[i].getString("starttime"));
+                            editor.putString("pastcreator"+stringi, jsonObj[i].getString("creator"));
+                            editor.putString("pastaswho"+stringi, jsonObj[i].getString("aswho"));
+                            editor.putString("pastattendants"+stringi, jsonObj[i].getString("attendants"));
+                            editor.putString("pastvenue"+stringi, jsonObj[i].getString("venue"));
                             editor.commit();
                             if(i==endloop)
                             {
@@ -194,22 +170,20 @@ public class ViewPastEventsAsyncTask extends AsyncTask<String, Void, String> {
                     }
 
 
-                    String vieweventss = "current";
-                    new ViewCurrentEventsAsyncTask(context).execute(vieweventss);
+                    //String vieweventsfromviewpast = "current";
+                    //new ViewCurrentEventsAsyncTask(context).execute(vieweventsfromviewpast);
 
                 } catch (JSONException e) {
                     //e.printStackTrace();
                     Toast.makeText(context, "async: "+ e.getMessage(), Toast.LENGTH_LONG).show();//"Error parsing JSON data :- "+query_result1
                 }
+
             }
-
-
-
-
 
         } else {
             Toast.makeText(context, "Couldn't get any JSON data.", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 }

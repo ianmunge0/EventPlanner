@@ -1,164 +1,82 @@
 package com.testmaps.testmaps;
 
-import android.content.Intent;
-import android.support.v4.app.ListFragment;
-import android.widget.AdapterView;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
-/*public class Upcoming extends Fragment {
-    String [] upcoming = new String[]{"upcoming 1", "upcoming 2", "upcoming 3"};
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class Upcoming extends Fragment {
+
+    private RecyclerView recyclerView2;
+    private RecyclerAdapter adapter2;
+    private List<employee> employeeList2;
+
+    public Upcoming() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // try app bundle / ensure sharedPref data is always updated on class initialized
+        String vieweventss = "upcoming";
+        new ViewUpcomingEventsAsyncTask(getContext()).execute(vieweventss);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-        //String jsonEvents = sharedPref.getString("prefkey2forviewevents", "");
-        //String pasteventsasarray = sharedPref.getString("arraytopasttabkey", "");
-        //String[] pasteventsassplitstring = pasteventsasarray.split("-");
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.activity_upcoming, container, false);
 
+        recyclerView2 = root.findViewById(R.id.recyclerView2);
+        recyclerView2.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView2.setLayoutManager(layoutManager);
+        loaddata();
+        adapter2 = new RecyclerAdapter(employeeList2);
+        adapter2.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(employee emp, int position) {
 
-
-        //JSONArray jsonArray0 = new JSONArray(jsonEvents);
-        //String[] eventsArray = jsonArray0.toString().replace("[", "").replace("]", "").replace("\"", "").split(",");
-
-        int endloop = sharedPref.getInt("noofupcomingevents", 0);
-        String[] eventsArray = new String[endloop];
-        for(int i = 0; i<endloop; i++)
-        {
-            eventsArray[i] = sharedPref.getString("upcoming"+i, "not available");
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, eventsArray);
-        //setListAdapter(adapter);
-        Toast.makeText(getContext(), "3", Toast.LENGTH_LONG).show();
-        return super.onCreateView(inflater, container, savedInstanceState);
-
-
-    }
-    public static Upcoming newInstance(String text)
-    {
-        Upcoming f = new Upcoming();
-        Bundle b = new Bundle();
-        f.setArguments(b);
-        return f;
-    }
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-    }
-
-
-}*/
-public class Upcoming extends ListFragment implements OnItemClickListener {
-    public Context context;
-
-    private ListView mListView;
-    public ListViewContactAdapter adapter;
-    public ArrayList<ListViewContactItem> listContact;
-
-    public Upcoming()
-    {
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View view = inflater.inflate(R.layout.activity_upcoming, container, false);
-        mListView = (ListView) view.findViewById(android.R.id.list);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
-        listContact = GetlistContact();
-        adapter=new ListViewContactAdapter(getActivity(), listContact);
-        mListView.setAdapter(adapter);
-
-        String [] upcoming = new String[]{"upcoming 1", "upcoming 2", "upcoming 3"};
-        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-        int endloop = sharedPref.getInt("noofupcomingevents", 0);
-        String[] eventsArray = new String[endloop];
-        for(int i = 0; i<endloop; i++)
-        {
-            eventsArray[i] = sharedPref.getString("upcomingtitle"+i, "not available");
-        }
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, eventsArray);
-        //setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
-        // TODO Auto-generated method stub
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        int positionplusone = position+1;
-        String eventIdForViewIndiv = sharedPref.getString("upcomingid"+position, "upcomingidzer0");
-        editor.putString("eventIdForViewIndiv", eventIdForViewIndiv);
-        editor.putInt("upcomingeventkeyplusone", positionplusone);
-        editor.commit();
-        String vieweventss = "";
-        new FetchAttendantsAsyncTask(getActivity().getBaseContext()).execute(vieweventss);
-
-    }
-
-    private ArrayList<ListViewContactItem> GetlistContact(){
-
-
-        ListViewContactItem contact = new ListViewContactItem();
-
-        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
-        int endloop = sharedPref.getInt("noofupcomingevents", 1);
-        int endloopminusone = endloop - 1;
-        String[] eventsArray = new String[endloop];
-        String[] asWhoArray = new String[endloop];
-        ArrayList<ListViewContactItem> contactlist = new ArrayList<ListViewContactItem>(Collections.nCopies(endloop, contact));
-        String loggedinuserr = sharedPref.getString("prefkeyforusername", "");
-
-
-        for(int i = 0; i<=endloopminusone; i++)
-        {
-            eventsArray[i] = sharedPref.getString("upcomingtitle"+i, "(No Upcoming Events)");
-            asWhoArray[i] = sharedPref.getString("upcomingaswho"+i, "");
-            contact = new ListViewContactItem();
-            contact.setArea(eventsArray[i]);
-            contact.setStreetName(asWhoArray[i]);
-            contactlist.set(i, contact);
-            if(i==endloopminusone){
-                return contactlist;
+                Toast.makeText(getContext(), emp.getName(), Toast.LENGTH_LONG).show();
             }
-        }
+        });
+        recyclerView2.setAdapter(adapter2);
 
-        contact.setPickUpPoint("xyz");
-        //contact.setArea("xyz City");
-        contact.setLandmark("near xyz");
-        //contact.setStreetName("xyz Road");
-        return null;
+        return root;
     }
 
+    private void loaddata() {
+
+        employeeList2 = new ArrayList<>();
+
+        SharedPreferences sharedPref = this.getActivity().getSharedPreferences("usernamepref", Context.MODE_PRIVATE);
+
+        int endloop2 = sharedPref.getInt("noofupcomingevents", 1);
+        int endloopminusone2 = endloop2 - 1;
+
+        String[] eventsArray2 = new String[endloop2];
+        String[] asWhoArray2 = new String[endloop2];
+
+        for(int w = 0; w<=endloopminusone2; w++){
+            String stringw = Integer.toString(w);
+
+            eventsArray2[w] = sharedPref.getString("upcomingtitle"+stringw, "(No Upcoming Events)");
+            asWhoArray2[w] = sharedPref.getString("upcomingaswho"+stringw, "");
+
+            employeeList2.add(new employee(eventsArray2[w],asWhoArray2[w]));
+        }
+
+    }
 }

@@ -142,9 +142,9 @@ public class ViewUpcomingEventsAsyncTask extends AsyncTask<String, Void, String>
 
                     if (query_result1.equals("NOEVENTS"))
                     {
-                        Intent startviewpage = new Intent(context.getApplicationContext(), EventsTab1.class);
-                        startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(startviewpage);
+                        //Intent startviewpage = new Intent(context.getApplicationContext(), EventsTab.class);
+                        //startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        //context.startActivity(startviewpage);
                     }
 
                 }
@@ -166,25 +166,27 @@ public class ViewUpcomingEventsAsyncTask extends AsyncTask<String, Void, String>
                     if(jsonArray != null)
                     {
                         int endloop = jsonArray.length()-1;
-                        for(int i=0; i<=endloop; i++)
+                        for(int r=0; r<=endloop; r++)
                         {
                             query_result = new String[jsonArray.length()];
-                            query_result[i] = jsonArray.getString(i);
+                            query_result[r] = jsonArray.getString(r);
                             jsonObj = new JSONObject[jsonArray.length()];
-                            jsonObj[i] = new JSONObject(query_result[i]);
-                            jsonObj[i].getString("title");
+                            jsonObj[r] = new JSONObject(query_result[r]);
+                            jsonObj[r].getString("title");
 
-                            editor.putString("upcomingid"+i, jsonObj[i].getString("id"));
-                            editor.putString("upcomingtitle"+i, jsonObj[i].getString("title"));
-                            editor.putString("upcomingdescription"+i, jsonObj[i].getString("description"));
-                            editor.putString("upcomingdate"+i, jsonObj[i].getString("startdate_yyyy_mm_dd"));
-                            editor.putString("upcomingtime"+i, jsonObj[i].getString("starttime"));
-                            editor.putString("upcomingcreator"+i, jsonObj[i].getString("creator"));
-                            editor.putString("upcomingaswho"+i, jsonObj[i].getString("aswho"));
-                            editor.putString("upcomingattendants"+i, jsonObj[i].getString("attendants"));
-                            editor.putString("upcomingvenue"+i, jsonObj[i].getString("venue"));
+                            String stringr = Integer.toString(r);
+                            
+                            editor.putString("upcomingid"+stringr, jsonObj[r].getString("id"));
+                            editor.putString("upcomingtitle"+stringr, jsonObj[r].getString("title"));
+                            editor.putString("upcomingdescription"+stringr, jsonObj[r].getString("description"));
+                            editor.putString("upcomingdate"+stringr, jsonObj[r].getString("startdate_yyyy_mm_dd"));
+                            editor.putString("upcomingtime"+stringr, jsonObj[r].getString("starttime"));
+                            editor.putString("upcomingcreator"+stringr, jsonObj[r].getString("creator"));
+                            editor.putString("upcomingaswho"+stringr, jsonObj[r].getString("aswho"));
+                            editor.putString("upcomingattendants"+stringr, jsonObj[r].getString("attendants"));
+                            editor.putString("upcomingvenue"+stringr, jsonObj[r].getString("venue"));
                             editor.commit();
-                            if(i==endloop)
+                            if(r==endloop)
                             {
                                 editor.putInt("noofupcomingevents", jsonArray.length());
                                 editor.commit();
@@ -196,9 +198,9 @@ public class ViewUpcomingEventsAsyncTask extends AsyncTask<String, Void, String>
 
                     }
 
-                    Intent startviewpage = new Intent(context.getApplicationContext(), EventsTab1.class);
-                    startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(startviewpage);
+                    //Intent startviewpage = new Intent(context.getApplicationContext(), EventsTab.class);
+                    //startviewpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //context.startActivity(startviewpage);
 
                 } catch (JSONException e) {
                     //e.printStackTrace();

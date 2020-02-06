@@ -140,8 +140,8 @@ public class ViewCurrentEventsAsyncTask extends AsyncTask<String, Void, String> 
 
                     if (query_result1.equals("NOEVENTS"))
                     {
-                        String vieweventss = "upcoming";
-                        new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
+                        //String vieweventss = "upcoming";
+                        //new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
                     }
 
                 }
@@ -162,25 +162,27 @@ public class ViewCurrentEventsAsyncTask extends AsyncTask<String, Void, String> 
                     if(jsonArray != null)
                     {
                         int endloop = jsonArray.length()-1;
-                        for(int i=0; i<=endloop; i++)
+                        for(int m=0; m<=endloop; m++)
                         {
                             query_result = new String[jsonArray.length()];
-                            query_result[i] = jsonArray.getString(i);
+                            query_result[m] = jsonArray.getString(m);
                             jsonObj = new JSONObject[jsonArray.length()];
-                            jsonObj[i] = new JSONObject(query_result[i]);
-                            jsonObj[i].getString("title");
+                            jsonObj[m] = new JSONObject(query_result[m]);
+                            jsonObj[m].getString("title");
 
-                            editor.putString("currentid"+i, jsonObj[i].getString("id"));
-                            editor.putString("currenttitle"+i, jsonObj[i].getString("title"));
-                            editor.putString("currentdescription"+i, jsonObj[i].getString("description"));
-                            editor.putString("currentdate"+i, jsonObj[i].getString("startdate_yyyy_mm_dd"));
-                            editor.putString("currenttime"+i, jsonObj[i].getString("starttime"));
-                            editor.putString("currentcreator"+i, jsonObj[i].getString("creator"));
-                            editor.putString("currentaswho"+i, jsonObj[i].getString("aswho"));
-                            editor.putString("currentattendants"+i, jsonObj[i].getString("attendants"));
-                            editor.putString("currentvenue"+i, jsonObj[i].getString("venue"));
+                            String stringm = Integer.toString(m);
+
+                            editor.putString("currentid"+stringm, jsonObj[m].getString("id"));
+                            editor.putString("currenttitle"+stringm, jsonObj[m].getString("title"));
+                            editor.putString("currentdescription"+stringm, jsonObj[m].getString("description"));
+                            editor.putString("currentdate"+stringm, jsonObj[m].getString("startdate_yyyy_mm_dd"));
+                            editor.putString("currenttime"+stringm, jsonObj[m].getString("starttime"));
+                            editor.putString("currentcreator"+stringm, jsonObj[m].getString("creator"));
+                            editor.putString("currentaswho"+stringm, jsonObj[m].getString("aswho"));
+                            editor.putString("currentattendants"+stringm, jsonObj[m].getString("attendants"));
+                            editor.putString("currentvenue"+stringm, jsonObj[m].getString("venue"));
                             editor.commit();
-                            if(i==endloop)
+                            if(m == endloop)
                             {
                                 editor.putInt("noofcurrentevents", jsonArray.length());
                                 editor.commit();
@@ -189,8 +191,8 @@ public class ViewCurrentEventsAsyncTask extends AsyncTask<String, Void, String> 
 
                     }
 
-                    String vieweventss = "upcoming";
-                    new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
+                    //String vieweventss = "upcoming";
+                    //new ViewUpcomingEventsAsyncTask(context).execute(vieweventss);
 
                 } catch (JSONException e) {
                     //e.printStackTrace();
