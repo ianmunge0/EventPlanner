@@ -8,11 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,11 +73,32 @@ public class DeleteEvents extends Activity {
             {
 
                 @Override
-                public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+                public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long arg3)
                 {
+                    AlertDialog.Builder x = new AlertDialog.Builder(DeleteEvents.this);
+                    x.setMessage("Are you sure you want to delete this event ?");
+                    x.setCancelable(false);
+                    x.setCancelable(false);
+                    x.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            String vieweventss = "past";
+                            new DeleteEventsAsyncTask(getApplicationContext()).execute(vieweventss, listCustomObject.get(position));
+
+                        }
+                    });
+                    x.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    x.create().show();
                     // TODO Auto-generated method stub
-                    String vieweventss = "past";
-                    new DeleteEventsAsyncTask(getApplicationContext()).execute(vieweventss, listCustomObject.get(position));
+
                 }
             });
 
