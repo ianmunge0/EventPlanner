@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -24,6 +26,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class UpdateEventAsyncTask extends AsyncTask<String, Void, String> {
@@ -93,6 +98,8 @@ public class UpdateEventAsyncTask extends AsyncTask<String, Void, String> {
     }
 
     String query_result1;
+    String[] query_result;
+    JSONObject[] jsonObj;
 
     @Override
     protected void onPostExecute(String result) {
@@ -116,67 +123,80 @@ public class UpdateEventAsyncTask extends AsyncTask<String, Void, String> {
                 try
                 {
                     JSONArray jsonArray = new JSONArray(jsonStr1);
+                    int endloop = jsonArray.length()-1;
+                    String[] eventsArray = new String[jsonArray.length()];// = jsonArray.toString().replace("[", "").replace("]", "").replace("\"", "").split(",");
+                    final String[] eventsArray1 = new String[jsonArray.length()];
+                    query_result = new String[jsonArray.length()];
+                    jsonObj = new JSONObject[jsonArray.length()];
+                    final String[] eventsArray1date, eventsArray1time;
+                    eventsArray1date = new String[jsonArray.length()];
+                    eventsArray1time = new String[jsonArray.length()];
 
-                    //JSONArray jsonArray = new JSONArray(jsonStr1);
-                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.select_dialog_singlechoice);
-                    String[] eventsArray = jsonArray.toString().replace("[", "").replace("]", "").replace("\"", "").split(",");
-                    int endloop = eventsArray.length - 1;
-                    for(int i = 0; i<=endloop; i++)
-                    {
-                        arrayAdapter.add(eventsArray[i]);
+                    for(int r=0; r<=endloop; r++){
+                        query_result[r] = jsonArray.getString(r);
+                        jsonObj[r] = new JSONObject(query_result[r]);
+                        eventsArray[r] = jsonObj[r].getString("title");
+                        eventsArray1[r] = jsonObj[r].getString("datecreated")+" "+jsonObj[r].getString("timecreated");
+                        eventsArray1date[r] = jsonObj[r].getString("datecreated");
+                        eventsArray1time[r] = jsonObj[r].getString("timecreated");
 
-                        if(i==endloop)
-                        {
-                            final AlertDialog.Builder x = new AlertDialog.Builder(context);
-                            //x.setMessage("Choose the first event to attend");
-                            x.setCancelable(false);
-                            x.setTitle("Choose the first event you will attend");
-                            x.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    final String firstevent = arrayAdapter.getItem(which);
-                                    AlertDialog.Builder builderInner = new AlertDialog.Builder(context);
-                                    builderInner.setMessage(firstevent);
-                                    builderInner.setCancelable(false);
-                                    builderInner.setTitle("Confirm...");
-                                    builderInner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog,int which) {
-                                            Toast.makeText(context, firstevent, Toast.LENGTH_LONG).show();
-                                            new FirstEventAsyncTask(context).execute(firstevent);
-                                            dialog.dismiss();
-                                        }
-                                    });
-                                    builderInner.setNegativeButton("Back", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog,int which) {
-                                            x.show();
-                                        }
-                                    });
-                                    builderInner.show();
-                                }
-                            });
-
-        				/*x.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-
-        					@Override
-        					public void onClick(DialogInterface dialog, int which) {
-        						// TODO Auto-generated method stub
-        						dialog.cancel();
-
-
-        					}
-        				});*/
-                            x.create().show();
-                        }
                     }
 
+                    //JSONArray jsonArray = new JSONArray(jsonStr1);
 
-                    //Toast.makeText(context, "Choose one", Toast.LENGTH_SHORT).show();
+                    final List<String> listCustomObject = new ArrayList<String>(Arrays.asList(eventsArray));
+                    final List<String> listCustomObject1 = new ArrayList<String>(Arrays.asList(eventsArray1));
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_2, android.R.id.text1, listCustomObject){
+                        @Override
+                        public View getView(int position,
+                                            View convertView, ViewGroup parent) {
+                            View view = super.getView(position, convertView, parent);
+
+                            TextView text1 = view.findViewById(android.R.id.text1);
+                            TextView text2 = view.findViewById(android.R.id.text2);
+
+                            text1.setText(listCustomObject.get(position));
+
+                            text2.setText("created on date(Y-M-D):"+eventsArray1date[position]+" time:"+eventsArray1time[position]);
+
+                            return view;
+                        }
+                    };
+
+                    final AlertDialog.Builder x = new AlertDialog.Builder(context);
+                    //x.setMessage("Choose the first event to attend");
+                    x.setCancelable(false);
+                    x.setTitle("Choose the first event you will attend");
+                    x.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //final String firstevent = arrayAdapter.getItem(which);
+                            final String firstevent = eventsArray1[which];
+                            AlertDialog.Builder builderInner = new AlertDialog.Builder(context);
+                            builderInner.setMessage(arrayAdapter.getItem(which));
+                            builderInner.setCancelable(false);
+                            builderInner.setTitle("Confirm...");
+                            builderInner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,int which) {
+                                    //Toast.makeText(context, firstevent, Toast.LENGTH_LONG).show();
+                                    new FirstEventAsyncTask(context).execute(firstevent);
+                                    dialog.dismiss();
+                                }
+                            });
+                            builderInner.setNegativeButton("Back", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,int which) {
+                                    x.show();
+                                }
+                            });
+                            builderInner.show();
+                        }
+                    });
 
 
+                    x.create().show();
 
-                    //Toast.makeText(context, query_result1+": "+e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
                 catch(JSONException f)
                 {
