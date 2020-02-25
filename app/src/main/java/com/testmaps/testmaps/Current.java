@@ -30,14 +30,14 @@ public class Current extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // try app bundle / ensure sharedPref data is always updated on class initialized
-        String vieweventsfromviewpast = "current";
-        new ViewCurrentEventsAsyncTask(getContext()).execute(vieweventsfromviewpast);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String vieweventsfromviewpast = "current";
+        new ViewCurrentEventsAsyncTask(getContext()).execute(vieweventsfromviewpast);
         View root = inflater.inflate(R.layout.activity_current, container, false);
 
         recyclerView1 = root.findViewById(R.id.recyclerView1);

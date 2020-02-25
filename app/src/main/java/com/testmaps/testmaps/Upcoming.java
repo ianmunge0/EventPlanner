@@ -29,14 +29,14 @@ public class Upcoming extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // try app bundle / ensure sharedPref data is always updated on class initialized
-        String vieweventss = "upcoming";
-        new ViewUpcomingEventsAsyncTask(getContext()).execute(vieweventss);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String vieweventss = "upcoming";
+        new ViewUpcomingEventsAsyncTask(getContext()).execute(vieweventss);
         View root = inflater.inflate(R.layout.activity_upcoming, container, false);
 
         recyclerView2 = root.findViewById(R.id.recyclerView2);

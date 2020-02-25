@@ -30,14 +30,15 @@ public class Past extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // try app bundle / ensure sharedPref data is always updated on class initialized
-        String vieweventsfromhomepage = "past";
-        new ViewPastEventsAsyncTask(getContext()).execute(vieweventsfromhomepage);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String vieweventsfromhomepage = "past";
+        new ViewPastEventsAsyncTask(getContext()).execute(vieweventsfromhomepage);
+
         View root = inflater.inflate(R.layout.activity_past, container, false);
 
         recyclerView = root.findViewById(R.id.recyclerView);
