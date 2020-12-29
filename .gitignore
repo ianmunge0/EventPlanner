@@ -45,12 +45,16 @@ captures/
 .idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+.idea/
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
+.idea/jarRepositories.xml
 
 # Navigation Editor
 .idea/navEditor.xml
+
+.idea/encodings.xml
 
 # Keystore files
 *.jks
@@ -70,5 +74,8 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 lint/reports/
+
+#release
+app/release/output-metadata.json
 
 .DS_Store
