@@ -19,6 +19,7 @@ public class EventsTab extends AppCompatActivity {
         setContentView(R.layout.activity_events_tab);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setOffscreenPageLimit(sectionsPagerAdapter.getCount());
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
